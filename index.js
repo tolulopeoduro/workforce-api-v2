@@ -1,6 +1,7 @@
 const express = require("express")
 import { MongoClient } from "mongodb"
 import authRoutes from "./src/routes/auth"
+import postRoutes from "./src/routes/post"
 import userRoutes from "./src/routes/user"
 const cors = require("cors")
 
@@ -27,3 +28,4 @@ MongoClient.connect(connectionString  , ((err , client) => {
 
 app.use("/auth" , authRoutes)
 app.use("/users" , userRoutes)
+app.use("/post" , postRoutes)
