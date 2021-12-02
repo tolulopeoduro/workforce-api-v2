@@ -4,7 +4,9 @@ import { signup } from "../controllers/auth/signup"
 
 const authRoutes = new Router()
 
-authRoutes.post("/login" , login)
+authRoutes.post("/login" , login , (req , res) => {
+    console.log(req.body)
+})
 authRoutes.post("/signup" , signup)
 
 export default authRoutes
