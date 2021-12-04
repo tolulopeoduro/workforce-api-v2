@@ -4,7 +4,7 @@ exports.createPost = (req , res) => {
         if (error) return ;
         res.status(201).json({
             status : 201,
-            message : "post created"
+                message : "post created"
+            })
         })
-    })
-}
+    }   

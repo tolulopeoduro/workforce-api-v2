@@ -1,26 +1,32 @@
 const { MongoClient, Db } = require("mongodb")
 import {hash , genSalt , compare} from "bcrypt"
+import { ObjectID } from "bson";
+const jwt = require("jsonwebtoken")
 const mongodb = require("../../../index")
 
 
-exports.signup = async (req , res) => {
+exports.signup = async (req , res , next) => {
     const client = req.app.locals.db;
 
     const p = await client.db("workforce-v2").collection("users").find({email : req.body.email}).count()
     if (p > 0) {
         return res.status(401).json({message : "email already used"})
     }     
-    hash(req.body.password , 10, (err , hash)=> {
-        console.log(hash)
+    hash(req.body.password , 10, async (err , hash)=> {
+        if (err) return 
+
         req.body.password = hash;
-        client.db("workforce-v2").collection("users").insertOne(req.body)
-        .then(() => {
-            jwt
-            res.status(201)
-            .json({
-                message : "Done"
-            })
+        const newData = await client.db("workforce-v2").collection("users").insertOne(req.body)
+        const user = await client.db("workforce-v2").collection("users").findOne({_id : ObjectID(newData.insertedId)})
+        const token = await jwt.sign({userId : user._id}, "my-string" , {expiresIn : '24h'})
+        console.log(user)
+        res.status(201)
+        .json({
+            userId : user._id,
+            token : token
+
         })
     })
+    next
 }
 
