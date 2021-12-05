@@ -2,12 +2,11 @@
   "name": "workforce-v2",
   "version": "1.0.0",
   "description": "",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js --exec babel-node -e js",
-    "build": "babel index.js --out-file index-compiled.js"
+    "build": "babel ./src --out-dir dist/src/ && babel ./index.js --out-file dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +24,6 @@
     "@babel/node": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "nodemon": "^2.0.13"
-  },
-  "engines": {
-    "node" : "12.x"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
