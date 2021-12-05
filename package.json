@@ -5,9 +5,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel ./src --out-dir dist/src/ && babel ./index.js --out-file dist/index.js",
-    "start": "yarn build && node dist/index.js"
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,6 @@
     "nodemon": "^2.0.13"
   },
   "dependencies": {
-    "@babel/cli": "^7.16.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
