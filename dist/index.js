@@ -24,7 +24,7 @@ app.use(_bodyParser.default.json());
 app.use(cors({
   origin: "*"
 }));
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static('images'));
 
 _mongodb.MongoClient.connect(connectionString, (err, client) => {
   if (err) {
