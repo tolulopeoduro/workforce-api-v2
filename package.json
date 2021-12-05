@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js --exec babel-node -e js",
-    "build": "babel ./src --out-dir dist/src/ && babel ./index.js --out-file dist/index.js"
+    "build": "babel ./src --out-dir dist/src/ && babel ./index.js --out-file dist/index.js",
+    "start": "yarn build && node dist/index.js"
   },
   "repository": {
     "type": "git",
