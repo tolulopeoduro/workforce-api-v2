@@ -5,10 +5,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel ./src --out-dir dist/src/ && babel ./index.js --out-file dist/index.js",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "dev": "nodemon ./index.js --exec babel-node -e js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "@babel/core": "^7.16.0",
     "@babel/node": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

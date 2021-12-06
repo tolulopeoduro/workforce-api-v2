@@ -5,14 +5,21 @@ import { getAllPosts } from "../controllers/posts/getAllPosts";
 import { getOnePost } from "../controllers/posts/getOnePost";
 import { getUserPosts } from "../controllers/posts/getUserPosts";
 import { updatePost } from "../controllers/posts/updatePost";
+import { likePost } from "../controllers/posts/likePost";
+import { auth } from "../middleware/auth";
+import { unLike } from "../controllers/posts/unlikePost";
+import { comment } from "../controllers/posts/comment";
 
 const postRoutes = new Router()
 
-postRoutes.post("/" , createPost)
+postRoutes.post("/" , auth , createPost)
 postRoutes.get("/" , getAllPosts)
 postRoutes.get("/:id" , getOnePost)
-postRoutes.put("/:id" , updatePost)
-postRoutes.delete("/:id" , deletePost)
+postRoutes.put("/:id" , auth , updatePost)
+postRoutes.delete("/:id" , auth , deletePost)
 postRoutes.get("/user/:id" , getUserPosts)
+postRoutes.post("/like/:id" , auth , likePost)
+postRoutes.post("/unlike/:id" , auth , unLike)
+postRoutes.post("/comment/:id" , auth , comment)
 
 export default postRoutes
