@@ -4,6 +4,7 @@ const fs = require('fs')
 exports.addProfilePicture = async (req, res, next) => {
     const client = req.app.locals.db;
     const file = req.file;
+    console.log(req.body)
     const user = await client.db("workforce-v2").collection("users").findOne({_id : ObjectId(req.body.userId)})
     const oldfile = user.imgUrl.split('/images/')[1]
     const update = () => {
