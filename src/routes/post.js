@@ -9,13 +9,14 @@ import { likePost } from "../controllers/posts/likePost";
 import { auth } from "../middleware/auth";
 import { unLike } from "../controllers/posts/unlikePost";
 import { comment } from "../controllers/posts/comment";
+import multerConfig from "../middleware/multer-config";
 
 const postRoutes = new Router()
 
-postRoutes.post("/" , auth , createPost)
+postRoutes.post("/" , auth , multerConfig , createPost)
 postRoutes.get("/" , getAllPosts)
 postRoutes.get("/:id" , getOnePost)
-postRoutes.put("/:id" , auth , updatePost)
+postRoutes.put("/:id" , auth , multerConfig , updatePost)
 postRoutes.delete("/:id" , auth , deletePost)
 postRoutes.get("/user/:id" , getUserPosts)
 postRoutes.post("/like/:id" , auth , likePost)
