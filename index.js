@@ -20,11 +20,9 @@ app.use('/images', express.static('images'));
 
 MongoClient.connect(connectionString  , ((err , client) => {
     if (err) {
-        console.log(err)
     }
     app.locals.db = client
-    app.listen(process.env.PORT || 6001)
-    console.log("connected")
+    app.listen(process.env.PORT || 4000)
 }))
 
 

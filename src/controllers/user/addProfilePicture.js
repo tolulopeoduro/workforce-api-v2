@@ -1,30 +1,28 @@
 const { ObjectId } = require("bson");
-const fs = require('fs')
+const cloudinary = require('../../middleware/cloudinary')
 
 exports.addProfilePicture = async (req, res, next) => {
     const client = req.app.locals.db;
     const file = req.file;
-    console.log(req.body)
-    const user = await client.db("workforce-v2").collection("users").findOne({_id : ObjectId(req.body.userId)})
-    const oldfile = user.imgUrl.split('/images/')[1]
-    const update = () => {
-        if (file) {
+    try {
+        cloudinary.uploader.upload(req.file.path , {folder : '/workforce-v2/uploads' , upload_preset : 'ml_default'})
+        .then(result => {
+
             client.db("workforce-v2").collection("users").updateOne(
                 {_id : ObjectId(req.body.userId)} ,
-                {$set : {imgUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`}},
+                {$set : {imgUrl : result.url}},
                 {upsert : true}
                 ).then(() => {
                     return res.status(200).json({
                         status : "successful"
                 })
-            })
-        }   
+            })  
+
+        })
+        .catch(err => {})
+        
+    } catch {
+
     }
     
-    if (fs.existsSync(`images/${oldfile}`)) {
-        fs.unlinkSync(`images/${oldfile}`)
-        update()
-    } else {
-        update()
-    }
   }
