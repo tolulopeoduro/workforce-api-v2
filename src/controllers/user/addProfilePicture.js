@@ -4,7 +4,6 @@ const fs = require('fs')
 exports.addProfilePicture = async (req, res, next) => {
     const client = req.app.locals.db;
     const file = req.file;
-    console.log(req.body)
     const user = await client.db("workforce-v2").collection("users").findOne({_id : ObjectId(req.body.userId)})
     const oldfile = user.imgUrl.split('/images/')[1]
     const update = () => {
@@ -16,15 +15,15 @@ exports.addProfilePicture = async (req, res, next) => {
                 ).then(() => {
                     return res.status(200).json({
                         status : "successful"
+                    })
                 })
-            })
-        }   
-    }
-    
-    if (fs.existsSync(`images/${oldfile}`)) {
-        fs.unlinkSync(`images/${oldfile}`)
-        update()
-    } else {
-        update()
-    }
+            }   
+        }
+        
+        if (fs.existsSync(`images/${oldfile}`)) {
+            fs.unlinkSync(`images/${oldfile}`)
+            update()
+        } else {
+            update()
+        }
   }

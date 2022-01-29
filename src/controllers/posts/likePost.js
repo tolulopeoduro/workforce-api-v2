@@ -8,7 +8,7 @@ exports.likePost = async (req , res) => {
         {upsert : true}
         ).then(() => {
             return res.status(200).json({
-                status : "successful"
+                status : "successful"   
         })
     })
 }
